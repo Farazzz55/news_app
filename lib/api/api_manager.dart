@@ -7,12 +7,14 @@ import 'package:news_flutterproject/model/SourceResponse.dart';
 class ApiManager{
  ///https://newsapi.org/v2/top-headlines/sources?apiKey=6e9751459b4d4a3282e42f5c323566ed
   ///https://newsapi.org/v2/everything?q=bitcoin&apiKey=6e9751459b4d4a3282e42f5c323566ed
-  static Future <SourceResponse?>getSource()async{
+  static Future <SourceResponse?>getSource(String categoryId)async{
     Uri url = Uri.https(ApiConstant.url_base,ApiConstant.sourceApi,// name of server , name of Api
-
         {
-      'apiKey' : '6e9751459b4d4a3282e42f5c323566ed'
-    });
+      'apiKey' : '6e9751459b4d4a3282e42f5c323566ed',
+       'category' : categoryId
+
+
+        });
     var response = await http.get(url);
     try{
       var responseBody = response.body;
@@ -31,7 +33,7 @@ class ApiManager{
   static Future<NewsResponse?> getNewsBySourceid(String sourceId) async{
     Uri url = Uri.https(ApiConstant.url_base,ApiConstant.NewsApi,{
       'apiKey':'6e9751459b4d4a3282e42f5c323566ed',
-      'sources' : sourceId
+      'sources' : sourceId,
     });
     var response = await http.get(url);
     try{

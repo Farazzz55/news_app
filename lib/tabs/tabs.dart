@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:news_flutterproject/home_screen/News/news_.dart';
-import 'package:news_flutterproject/home_screen/tabs/tabs_item.dart';
+
 import 'package:news_flutterproject/model/SourceResponse.dart';
+import 'package:news_flutterproject/tabs/tabs_item.dart';
+
+import '../News/news_.dart';
 
 class Tabs extends StatefulWidget{
   List <Sources> sourceList;

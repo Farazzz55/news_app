@@ -23,8 +23,20 @@ class MyThemeData{
         titleMedium: TextStyle(
           color: AppColors.whiteColor,
           fontSize: 18,
-        )
-    )
+        ),
+      titleSmall: TextStyle(
+        fontSize: 12,
+      ),
+      bodyMedium: TextStyle(
+        fontSize: 15
+      ),
+      bodySmall: TextStyle(
+          fontSize: 13
+      ),
+
+
+    ),
+
 
   );
 }

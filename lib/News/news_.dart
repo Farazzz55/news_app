@@ -5,6 +5,7 @@ import 'package:news_flutterproject/api/api_manager.dart';
 import 'package:news_flutterproject/model/NewsResponse.dart';
 
 import '../../model/SourceResponse.dart';
+import 'news_item.dart';
 
 class News extends StatefulWidget{
   Sources source ;
@@ -55,7 +56,7 @@ class _NewsState extends State<News> {
           }
           var newsList=snapshot.data!.articles!;
           return ListView.builder(itemBuilder: (context,index){
-            return Text(newsList[index].title??'');
+            return NewsItem(news: newsList[index]);
           },
           itemCount: newsList.length);
 

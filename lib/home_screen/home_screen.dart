@@ -1,9 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_flutterproject/AppColors.dart';
-import 'package:news_flutterproject/api/api_manager.dart';
-import 'package:news_flutterproject/home_screen/tabs/tabs.dart';
-import 'package:news_flutterproject/model/SourceResponse.dart';
+import 'package:news_flutterproject/home_screen/category/category_details.dart';
+import 'package:news_flutterproject/home_screen/category/category_fragment.dart';
+import 'package:news_flutterproject/home_screen/home_drawer.dart';
+import 'package:news_flutterproject/model/category.dart';
+import 'package:news_flutterproject/setting/setting.dart';
 
 class HomeScreen extends StatefulWidget{
   static String routeName='HomeScreen';
@@ -13,6 +16,7 @@ class HomeScreen extends StatefulWidget{
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   @override
   Widget build(BuildContext context) {
    return Stack(
@@ -25,54 +29,47 @@ class _HomeScreenState extends State<HomeScreen> {
        Scaffold(
          backgroundColor: Colors.transparent,
          appBar: AppBar(
-           title: Text('News App',style: GoogleFonts.exo(
+           iconTheme: IconThemeData(color: AppColors.whiteColor),
+           title: Text(selectedItemDrawer == HomeDrawer.setting ? 'Settings' :
+               selectedCategory == null ?
+             'News App' : '${selectedCategory!.title}',style: GoogleFonts.exo(
              textStyle:Theme.of(context).textTheme.titleLarge
            ),),
 
          ),
-         body:
-         FutureBuilder<SourceResponse?>(future: ApiManager.getSource(),
-             builder: (context,snapshot){
-           if(snapshot.connectionState==ConnectionState.waiting){
-             return Center(child: CircularProgressIndicator(
-               color: AppColors.primaryLight,
-             ));
-           }
-           else if(snapshot.hasError){
-             return Column(
-               children: [
-                 Text('Something went wrong'),
-                 ElevatedButton(onPressed: (){
-                   ApiManager.getSource();
-                   setState(() {
+           drawer: Drawer(
+             child:  HomeDrawer(onClickHomeDrawer: onClickDrawer ,),
+           ),
 
-                   });
-                 }, child: Text('Try again'))
-               ],
-             );
-           }
-           if(snapshot.data!.status!='ok'){
-             return Column(
-               children: [
-                 Text(snapshot.data!.message!),
-                 ElevatedButton(onPressed: (){
-                   ApiManager.getSource();
-                   setState(() {
-
-                   });
-                 }, child: Text('Try again'))
-               ],
-             );
-
-           }
-           var sourceList=snapshot.data!.sources!  ;
-           return Tabs(sourceList: sourceList);
-
-
-             }),
+           body:
+               selectedItemDrawer==HomeDrawer.setting ?
+                   Setting() :
+           selectedCategory == null ?
+           CategoryFragment(onCategoryClick: onCategoryClick,) :
+               CategoryDetails(category: selectedCategory!,)
        )
      ],
 
    );
+  }
+  CategoryModel ? selectedCategory;
+  void onCategoryClick(CategoryModel newCategory){
+     selectedCategory = newCategory ;
+     setState(() {
+
+     });
+
+  }
+
+  int selectedItemDrawer=HomeDrawer.categories ;
+  void onClickDrawer(int newSelectedDrawer){
+    selectedItemDrawer = newSelectedDrawer ;
+    selectedCategory=null;
+    Navigator.pop(context);
+    setState(() {
+
+    });
+
+
   }
 }
