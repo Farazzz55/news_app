@@ -25,9 +25,8 @@ class _TabsState extends State<Tabs> {
           children: [
             TabBar(
               onTap: (index){
-                selectedIndex=index;
                 setState(() {
-
+                 selectedIndex=index;
                 });
 
               },

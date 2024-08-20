@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_flutterproject/AppColors.dart';
+import 'package:news_flutterproject/News/news_details.dart';
 import 'package:news_flutterproject/model/NewsResponse.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -16,17 +17,22 @@ class NewsItem extends StatelessWidget{
        children: [
          ClipRRect(
            borderRadius: BorderRadius.circular(30),
-           child: CachedNetworkImage(
-             width: double.infinity,
-             height: MediaQuery.of(context).size.height*0.27,
-             fit: BoxFit.fill,
-             imageUrl: news.urlToImage??"",
-             placeholder: (context, url) => Center(
-                 child: CircularProgressIndicator(
-                   color: AppColors.primaryLight,
-                 ),
+           child: InkWell(
+             onTap: (){
+               Navigator.of(context).pushNamed(NewsDetails.routeName , arguments:  news);
+             },
+             child: CachedNetworkImage(
+               width: double.infinity,
+               height: MediaQuery.of(context).size.height*0.27,
+               fit: BoxFit.fill,
+               imageUrl: news.urlToImage??"",
+               placeholder: (context, url) => Center(
+                   child: CircularProgressIndicator(
+                     color: AppColors.primaryLight,
+                   ),
+               ),
+               errorWidget: (context, url, error) => Icon(Icons.error),
              ),
-             errorWidget: (context, url, error) => Icon(Icons.error),
            ),
 
          ),

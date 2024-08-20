@@ -33,6 +33,12 @@ dependencies:
   flutter_native_splash: ^2.4.1
   google_fonts: ^6.2.1
   cached_network_image: ^3.4.1
+  provider: ^6.1.2
+  url_launcher: ^6.3.0
+  flutter_bloc: ^8.1.6
+
+
+
 
 
 

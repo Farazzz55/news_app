@@ -1,10 +1,10 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_flutterproject/AppColors.dart';
 import 'package:news_flutterproject/home_screen/category/category_details.dart';
 import 'package:news_flutterproject/home_screen/category/category_fragment.dart';
 import 'package:news_flutterproject/home_screen/home_drawer.dart';
+import 'package:news_flutterproject/home_screen/search_screen.dart';
 import 'package:news_flutterproject/model/category.dart';
 import 'package:news_flutterproject/setting/setting.dart';
 
@@ -35,8 +35,17 @@ class _HomeScreenState extends State<HomeScreen> {
              'News App' : '${selectedCategory!.title}',style: GoogleFonts.exo(
              textStyle:Theme.of(context).textTheme.titleLarge
            ),),
-
-         ),
+           actions: [
+             if (selectedCategory!=null) Padding(padding: EdgeInsets.symmetric(
+               horizontal: MediaQuery.of(context).size.width*0.05
+             ),
+             child: IconButton(
+               onPressed: (){
+                 Navigator.of(context).pushNamed(SearchScreen.routeName);
+               },
+                  icon:Icon(Icons.search ,size: 35,))
+             )],
+                ),
            drawer: Drawer(
              child:  HomeDrawer(onClickHomeDrawer: onClickDrawer ,),
            ),
