@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_flutterproject/home_screen/home_screen.dart';
 import 'package:news_flutterproject/myThemeData.dart';
 
+import 'home_screen/category/cubit/my_bloc_observer.dart';
+
 void main() {
+  Bloc.observer = MyBlocObserver();
   runApp(const MyApp());
 }
 
