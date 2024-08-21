@@ -3,8 +3,6 @@ import 'package:news_flutterproject/home_screen/category/category_details_view_m
 import 'package:news_flutterproject/model/category.dart';
 import 'package:provider/provider.dart';
 import '../../AppColors.dart';
-import '../../api/api_manager.dart';
-import '../../model/SourceResponse.dart';
 import '../../tabs/tabs.dart';
 
 class CategoryDetails extends StatefulWidget{
