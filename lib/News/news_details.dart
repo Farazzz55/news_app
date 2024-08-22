@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_flutterproject/AppColors.dart';
 import 'package:news_flutterproject/News/news_item.dart';
+import 'package:news_flutterproject/News/news_navigator.dart';
+import 'package:news_flutterproject/News/news_view_model.dart';
 import 'package:news_flutterproject/model/NewsResponse.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class NewsDetails extends StatefulWidget{
@@ -61,7 +64,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                            textStyle: Theme.of(context).textTheme.titleMedium,
                            color: AppColors.greyColor,
                            fontWeight: FontWeight.bold
-                       ),  recognizer:  TapGestureRecognizer()..onTap = () {launchUrl(Uri.parse(news.url??''));})
+                       ),  recognizer: TapGestureRecognizer()..onTap = () {launchUrl(Uri.parse(news.url??''));})
                      ),
                       Icon(Icons.arrow_forward_rounded)
 
