@@ -22,13 +22,13 @@ class _NewsState extends State<News> implements NewsNavigator {
   void initState() {
     // TODO: implement initState
     super.initState();
-    viewModel.getNewsSource(widget.source.id??"");
     viewModel.navigator=this;
 
   }
   NewsViewModel viewModel = NewsViewModel();
   @override
   Widget build(BuildContext context) {
+    viewModel.getNewsSource(widget.source.id??"");
     return ChangeNotifierProvider(
       create: (context)=> viewModel ,
       child: Consumer<NewsViewModel>(builder: (context , viewModel, child){

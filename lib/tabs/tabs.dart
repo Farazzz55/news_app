@@ -32,7 +32,9 @@ class _TabsState extends State<Tabs> {
               children: [
                 TabBar(
                   onTap: (index) {
-                    viewModel.selectedIndex==index;
+                    viewModel.getNewsBySelectTab(index, widget.sourceList[index].id!);
+                   setState(() {
+                   });
                   },
                   isScrollable: true,
                   indicatorColor: Colors.transparent,

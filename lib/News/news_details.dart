@@ -13,6 +13,7 @@ class NewsDetails extends StatefulWidget{
   static String routeName='NewsDetails';
 
 
+
   @override
   State<NewsDetails> createState() => _NewsDetailsState();
 }

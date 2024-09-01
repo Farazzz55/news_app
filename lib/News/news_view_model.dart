@@ -63,9 +63,29 @@ class NewsViewModel extends ChangeNotifier {
     }
   }
 
-  void selectTab(int index, String sourceId) {
+  void getNewsBySelectTab(int index, String sourceId) {
     selectedIndex = index;
+    currentPage=1;
     getNewsSource(sourceId);
     notifyListeners();
   }
+
+  Future<void> searchNews(String sourceId, String searchTerm) async {
+    try {
+      var newsResponse = await ApiManager.getNewsBySourceid(sourceId);
+      if (newsResponse != null && newsResponse.articles != null) {
+        newsList = newsResponse.articles!.where((news) {
+          final query = searchTerm.toLowerCase();
+          return (news.title?.toLowerCase().contains(query) ?? false) ||
+              (news.author?.toLowerCase().contains(query) ?? false) ||
+              (news.publishedAt?.toLowerCase().contains(query) ?? false);
+        }).toList();
+        notifyListeners();
+      }
+    } catch (e) {
+      errorMessage = 'Failed to search news';
+      notifyListeners();
+    }
+  }
+
 }
