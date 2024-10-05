@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:news_flutterproject/News/news_navigator.dart';
 import 'package:news_flutterproject/api/api_manager.dart';
+import 'package:news_flutterproject/repository/news/data_source/news_remote_data_source_impl.dart';
+import 'package:news_flutterproject/repository/news/news_data_source.dart';
+import 'package:news_flutterproject/repository/news/news_repo.dart';
+import 'package:news_flutterproject/repository/news/repository/news_repo_impl.dart';
 import '../model/NewsResponse.dart';
 import '../model/SourceResponse.dart';
 
@@ -12,6 +16,15 @@ class NewsViewModel extends ChangeNotifier {
   NewsNavigator? navigator;
   int selectedIndex = 0;
   List<Sources> sources = [];
+  late NewsRepo newsRepo;
+  late NewsRemoteDataSource remoteDataSource;
+  late ApiManager apiManager;
+
+  NewsViewModel(){
+    apiManager=ApiManager();
+    remoteDataSource=NewsRemoteDataSourceImpl(apiManager: apiManager);
+    newsRepo=NewsRepoImpl(remoteDataSource: remoteDataSource);
+  }
 
 
   void getNewsSource(String sourceId) async {
@@ -19,7 +32,7 @@ class NewsViewModel extends ChangeNotifier {
     errorMessage = null;
     notifyListeners();
     try {
-      var response = await ApiManager.getNewsBySourceid(
+      var response = await newsRepo.getNewsBySourceId(
           sourceId, page: currentPage);
       if (response != null && response.articles != null) {
         newsList = response.articles;
@@ -44,7 +57,7 @@ class NewsViewModel extends ChangeNotifier {
     notifyListeners();
     currentPage++;
     try {
-      var newsResponse = await ApiManager.getNewsBySourceid(
+      var newsResponse = await newsRepo.getNewsBySourceId(
           sourceId, page: currentPage);
       if (newsResponse != null && newsResponse.articles != null &&
           newsResponse.articles!.isNotEmpty) {
@@ -72,7 +85,7 @@ class NewsViewModel extends ChangeNotifier {
 
   Future<void> searchNews(String sourceId, String searchTerm) async {
     try {
-      var newsResponse = await ApiManager.getNewsBySourceid(sourceId);
+      var newsResponse = await newsRepo.getNewsBySourceId(sourceId);
       if (newsResponse != null && newsResponse.articles != null) {
         newsList = newsResponse.articles!.where((news) {
           final query = searchTerm.toLowerCase();

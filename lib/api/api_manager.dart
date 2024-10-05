@@ -7,7 +7,7 @@ import 'package:news_flutterproject/model/SourceResponse.dart';
 class ApiManager{
  ///https://newsapi.org/v2/top-headlines/sources?apiKey=6e9751459b4d4a3282e42f5c323566ed
   ///https://newsapi.org/v2/everything?q=bitcoin&apiKey=6e9751459b4d4a3282e42f5c323566ed
-  static Future <SourceResponse?>getSource(String categoryId,{String language= 'en'})async{
+   Future <SourceResponse?>getSource(String categoryId,{String language= 'en'})async{
     Uri url = Uri.https(ApiConstant.url_base,ApiConstant.sourceApi,// name of server , name of Api
         {
       'apiKey' : '6e9751459b4d4a3282e42f5c323566ed',
@@ -30,7 +30,7 @@ class ApiManager{
   }
 
 
-  static Future<NewsResponse?> getNewsBySourceid(String sourceId,{int page = 1, int pageSize = 10 }) async{
+   Future<NewsResponse?> getNewsBySourceid(String sourceId,{int page = 1, int pageSize = 10 }) async{
     Uri url = Uri.https(ApiConstant.url_base,ApiConstant.NewsApi,{
       'apiKey':'6e9751459b4d4a3282e42f5c323566ed',
       'sources' : sourceId,
