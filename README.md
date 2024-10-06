@@ -3,4 +3,5 @@ The News Flutter Project is a mobile application designed to provide users with 
 # ScreenShots
 ![Untitled](https://github.com/user-attachments/assets/111a0023-36df-4c93-aa5d-2d1bb904f502)
 
+![Untitled](https://github.com/user-attachments/assets/bc52cba9-88fb-4364-848b-6df6401f9744)
 
